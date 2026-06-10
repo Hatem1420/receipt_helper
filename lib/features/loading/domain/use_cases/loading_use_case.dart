@@ -1,7 +1,6 @@
 import 'package:multiple_result/multiple_result.dart';
 import 'package:injectable/injectable.dart';
 import 'package:receipt_helper/core/errors/failure.dart';
-import 'package:receipt_helper/features/loading/domain/entities/loading_entity.dart';
 import 'package:receipt_helper/features/loading/domain/repositories/loading_repository_domain.dart';
 
 
@@ -11,7 +10,7 @@ class LoadingUseCase {
 
   LoadingUseCase(this._repositoryData);
 
-   Future<Result<LoadingEntity, Failure>> getLoading() async {
+   Future<Result<void, Failure>> getLoading() async {
     return _repositoryData.getLoading();
   }
 }

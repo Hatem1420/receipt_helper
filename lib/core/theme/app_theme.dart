@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import '../constants/app_colors.dart';
 import 'app_dimensions.dart';
-import 'app_shadows.dart';
 import 'app_theme_extension.dart';
 import 'app_text_theme.dart';
 
@@ -137,18 +136,13 @@ abstract final class AppTheme {
             horizontal: AppDimensions.spaceLg,
             vertical: AppDimensions.spaceMd,
           ),
-          side: BorderSide(
-            color: colorScheme.primary,
-            width: 1.5,
-          ),
+          side: BorderSide(color: colorScheme.primary, width: 1.5),
           shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.all(
               Radius.circular(AppDimensions.radiusLg),
             ),
           ),
-          textStyle: AppTextTheme.buttonLg.copyWith(
-            color: colorScheme.primary,
-          ),
+          textStyle: AppTextTheme.buttonLg.copyWith(color: colorScheme.primary),
         ),
       ),
 
@@ -174,10 +168,6 @@ abstract final class AppTheme {
         style: FilledButton.styleFrom(
           backgroundColor: colorScheme.primary,
           foregroundColor: colorScheme.onPrimary,
-          minimumSize: const Size(
-            double.infinity,
-            AppDimensions.buttonHeightMd,
-          ),
           padding: const EdgeInsets.symmetric(
             horizontal: AppDimensions.spaceLg,
           ),
@@ -225,53 +215,34 @@ abstract final class AppTheme {
           borderRadius: const BorderRadius.all(
             Radius.circular(AppDimensions.radiusMd),
           ),
-          borderSide: BorderSide(
-            color: ext.surfaceDivider,
-            width: 1,
-          ),
+          borderSide: BorderSide(color: ext.surfaceDivider, width: 1),
         ),
         enabledBorder: OutlineInputBorder(
           borderRadius: const BorderRadius.all(
             Radius.circular(AppDimensions.radiusMd),
           ),
-          borderSide: BorderSide(
-            color: ext.surfaceDivider,
-            width: 1,
-          ),
+          borderSide: BorderSide(color: ext.surfaceDivider, width: 1),
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: const BorderRadius.all(
             Radius.circular(AppDimensions.radiusMd),
           ),
-          borderSide: BorderSide(
-            color: colorScheme.primary,
-            width: 1.5,
-          ),
+          borderSide: BorderSide(color: colorScheme.primary, width: 1.5),
         ),
         errorBorder: OutlineInputBorder(
           borderRadius: const BorderRadius.all(
             Radius.circular(AppDimensions.radiusMd),
           ),
-          borderSide: BorderSide(
-            color: colorScheme.error,
-            width: 1.5,
-          ),
+          borderSide: BorderSide(color: colorScheme.error, width: 1.5),
         ),
         focusedErrorBorder: OutlineInputBorder(
           borderRadius: const BorderRadius.all(
             Radius.circular(AppDimensions.radiusMd),
           ),
-          borderSide: BorderSide(
-            color: colorScheme.error,
-            width: 1.5,
-          ),
+          borderSide: BorderSide(color: colorScheme.error, width: 1.5),
         ),
-        hintStyle: AppTextTheme.bodyMedium.copyWith(
-          color: ext.textSecondary,
-        ),
-        labelStyle: AppTextTheme.bodyMedium.copyWith(
-          color: ext.textSecondary,
-        ),
+        hintStyle: AppTextTheme.bodyMedium.copyWith(color: ext.textSecondary),
+        labelStyle: AppTextTheme.bodyMedium.copyWith(color: ext.textSecondary),
         floatingLabelStyle: AppTextTheme.labelMedium.copyWith(
           color: colorScheme.primary,
         ),
@@ -330,9 +301,7 @@ abstract final class AppTheme {
               fontWeight: FontWeight.w600,
             );
           }
-          return AppTextTheme.labelSmall.copyWith(
-            color: ext.textSecondary,
-          );
+          return AppTextTheme.labelSmall.copyWith(color: ext.textSecondary);
         }),
         height: AppDimensions.bottomNavHeight,
         elevation: 0,
@@ -343,16 +312,11 @@ abstract final class AppTheme {
       chipTheme: ChipThemeData(
         backgroundColor: ext.surfaceChip,
         selectedColor: colorScheme.primary.withValues(alpha: 0.20),
-        labelStyle: AppTextTheme.labelMedium.copyWith(
-          color: ext.textPrimary,
-        ),
+        labelStyle: AppTextTheme.labelMedium.copyWith(color: ext.textPrimary),
         secondaryLabelStyle: AppTextTheme.labelMedium.copyWith(
           color: colorScheme.primary,
         ),
-        side: BorderSide(
-          color: ext.surfaceDivider,
-          width: 1,
-        ),
+        side: BorderSide(color: ext.surfaceDivider, width: 1),
         shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.all(
             Radius.circular(AppDimensions.radiusFull),
@@ -504,10 +468,7 @@ abstract final class AppTheme {
         indicatorColor: colorScheme.primary,
         indicatorSize: TabBarIndicatorSize.label,
         indicator: UnderlineTabIndicator(
-          borderSide: BorderSide(
-            color: colorScheme.primary,
-            width: 2,
-          ),
+          borderSide: BorderSide(color: colorScheme.primary, width: 2),
         ),
         labelStyle: AppTextTheme.labelLarge.copyWith(
           color: colorScheme.primary,
@@ -538,9 +499,7 @@ abstract final class AppTheme {
       // ── Progress Indicator ────────────────────────────────────
       progressIndicatorTheme: ProgressIndicatorThemeData(
         color: colorScheme.primary,
-        linearTrackColor: isDark
-            ? AppColors.neutral700
-            : AppColors.neutral200,
+        linearTrackColor: isDark ? AppColors.neutral700 : AppColors.neutral200,
         circularTrackColor: isDark
             ? AppColors.neutral700
             : AppColors.neutral200,
@@ -592,9 +551,7 @@ abstract final class AppTheme {
             Radius.circular(AppDimensions.radiusMd),
           ),
         ),
-        textStyle: AppTextTheme.bodyMedium.copyWith(
-          color: ext.textPrimary,
-        ),
+        textStyle: AppTextTheme.bodyMedium.copyWith(color: ext.textPrimary),
         labelTextStyle: WidgetStateProperty.all(
           AppTextTheme.bodyMedium.copyWith(color: ext.textPrimary),
         ),
@@ -627,104 +584,104 @@ abstract final class AppTheme {
     brightness: Brightness.dark,
 
     // ── Primary (Lime-Green CTA) ─────────────────────────────────
-    primary:          AppColors.primary400,
-    onPrimary:        AppColors.neutral950,
+    primary: AppColors.primary400,
+    onPrimary: AppColors.neutral950,
     primaryContainer: AppColors.primary900,
     onPrimaryContainer: AppColors.primary200,
 
     // ── Secondary (muted green) ──────────────────────────────────
-    secondary:          AppColors.primary700,
-    onSecondary:        AppColors.neutral0,
+    secondary: AppColors.primary700,
+    onSecondary: AppColors.neutral0,
     secondaryContainer: AppColors.primary800,
     onSecondaryContainer: AppColors.primary200,
 
     // ── Tertiary (info blue) ─────────────────────────────────────
-    tertiary:          AppColors.info500,
-    onTertiary:        AppColors.neutral0,
+    tertiary: AppColors.info500,
+    onTertiary: AppColors.neutral0,
     tertiaryContainer: AppColors.info700,
     onTertiaryContainer: AppColors.info100,
 
     // ── Error ─────────────────────────────────────────────────────
-    error:          AppColors.error500,
-    onError:        AppColors.neutral0,
+    error: AppColors.error500,
+    onError: AppColors.neutral0,
     errorContainer: AppColors.error700,
     onErrorContainer: AppColors.error100,
 
     // ── Surfaces ─────────────────────────────────────────────────
-    surface:          AppColors.neutral950, // scaffold bg
-    onSurface:        AppColors.neutral0,
+    surface: AppColors.neutral950, // scaffold bg
+    onSurface: AppColors.neutral0,
     surfaceContainerHighest: AppColors.neutral800,
-    surfaceContainerHigh:    AppColors.neutral850,
-    surfaceContainer:        AppColors.neutral850,
-    surfaceContainerLow:     AppColors.neutral900,
-    surfaceContainerLowest:  AppColors.neutral950,
-    surfaceBright:    AppColors.neutral800,
-    surfaceDim:       AppColors.neutral950,
+    surfaceContainerHigh: AppColors.neutral850,
+    surfaceContainer: AppColors.neutral850,
+    surfaceContainerLow: AppColors.neutral900,
+    surfaceContainerLowest: AppColors.neutral950,
+    surfaceBright: AppColors.neutral800,
+    surfaceDim: AppColors.neutral950,
 
     // ── Outline ──────────────────────────────────────────────────
-    outline:        AppColors.neutral700,
+    outline: AppColors.neutral700,
     outlineVariant: AppColors.neutral800,
 
     // ── Inverse ──────────────────────────────────────────────────
-    inverseSurface:   AppColors.neutral100,
+    inverseSurface: AppColors.neutral100,
     onInverseSurface: AppColors.neutral900,
-    inversePrimary:   AppColors.primary600,
+    inversePrimary: AppColors.primary600,
 
     // ── Shadow / Scrim ───────────────────────────────────────────
     shadow: AppColors.neutral950,
-    scrim:  AppColors.neutral950,
+    scrim: AppColors.neutral950,
   );
 
   static const ColorScheme _lightColorScheme = ColorScheme(
     brightness: Brightness.light,
 
     // ── Primary ──────────────────────────────────────────────────
-    primary:          AppColors.primary500,
-    onPrimary:        AppColors.neutral950,
+    primary: AppColors.primary500,
+    onPrimary: AppColors.neutral950,
     primaryContainer: AppColors.primary100,
     onPrimaryContainer: AppColors.primary800,
 
     // ── Secondary ────────────────────────────────────────────────
-    secondary:          AppColors.primary600,
-    onSecondary:        AppColors.neutral0,
+    secondary: AppColors.primary600,
+    onSecondary: AppColors.neutral0,
     secondaryContainer: AppColors.primary100,
     onSecondaryContainer: AppColors.primary700,
 
     // ── Tertiary ─────────────────────────────────────────────────
-    tertiary:          AppColors.info500,
-    onTertiary:        AppColors.neutral0,
+    tertiary: AppColors.info500,
+    onTertiary: AppColors.neutral0,
     tertiaryContainer: AppColors.info100,
     onTertiaryContainer: AppColors.info700,
 
     // ── Error ─────────────────────────────────────────────────────
-    error:          AppColors.error500,
-    onError:        AppColors.neutral0,
+    error: AppColors.error500,
+    onError: AppColors.neutral0,
     errorContainer: AppColors.error100,
     onErrorContainer: AppColors.error700,
 
     // ── Surfaces ─────────────────────────────────────────────────
-    surface:          AppColors.neutral50,
-    onSurface:        AppColors.neutral950,
+    surface: AppColors.neutral50,
+    onSurface: AppColors.neutral950,
     surfaceContainerHighest: AppColors.neutral200,
-    surfaceContainerHigh:    AppColors.neutral100,
-    surfaceContainer:        AppColors.neutral50,
-    surfaceContainerLow:     AppColors.neutral50,
-    surfaceContainerLowest:  AppColors.neutral0,
-    surfaceBright:    AppColors.neutral0,
-    surfaceDim:       AppColors.neutral200,
+    surfaceContainerHigh: AppColors.neutral100,
+    surfaceContainer: AppColors.neutral50,
+    surfaceContainerLow: AppColors.neutral50,
+    surfaceContainerLowest: AppColors.neutral0,
+    surfaceBright: AppColors.neutral0,
+    surfaceDim: AppColors.neutral200,
 
     // ── Outline ──────────────────────────────────────────────────
-    outline:        AppColors.neutral300,
+    outline: AppColors.neutral300,
     outlineVariant: AppColors.neutral200,
 
     // ── Inverse ──────────────────────────────────────────────────
-    inverseSurface:   AppColors.neutral900,
+    inverseSurface: AppColors.neutral900,
     onInverseSurface: AppColors.neutral50,
-    inversePrimary:   AppColors.primary300,
+    inversePrimary: AppColors.primary300,
 
     // ── Shadow / Scrim ───────────────────────────────────────────
     shadow: AppColors.neutral900,
-    scrim:  AppColors.neutral900,
+    scrim: AppColors.neutral900,
   );
 
   // ════════════════════════════════════════════════════════════════
@@ -732,27 +689,27 @@ abstract final class AppTheme {
   // ════════════════════════════════════════════════════════════════
 
   static TextTheme _buildTextTheme(ColorScheme cs) => TextTheme(
-    displayLarge:  AppTextTheme.displayLarge.copyWith(color: cs.onSurface),
+    displayLarge: AppTextTheme.displayLarge.copyWith(color: cs.onSurface),
     displayMedium: AppTextTheme.displayMedium.copyWith(color: cs.onSurface),
-    displaySmall:  AppTextTheme.displaySmall.copyWith(color: cs.onSurface),
+    displaySmall: AppTextTheme.displaySmall.copyWith(color: cs.onSurface),
 
-    headlineLarge:  AppTextTheme.headlineLarge.copyWith(color: cs.onSurface),
+    headlineLarge: AppTextTheme.headlineLarge.copyWith(color: cs.onSurface),
     headlineMedium: AppTextTheme.headlineMedium.copyWith(color: cs.onSurface),
-    headlineSmall:  AppTextTheme.headlineSmall.copyWith(color: cs.onSurface),
+    headlineSmall: AppTextTheme.headlineSmall.copyWith(color: cs.onSurface),
 
-    titleLarge:  AppTextTheme.titleLarge.copyWith(color: cs.onSurface),
+    titleLarge: AppTextTheme.titleLarge.copyWith(color: cs.onSurface),
     titleMedium: AppTextTheme.titleMedium.copyWith(color: cs.onSurface),
-    titleSmall:  AppTextTheme.titleSmall.copyWith(color: cs.onSurface),
+    titleSmall: AppTextTheme.titleSmall.copyWith(color: cs.onSurface),
 
-    bodyLarge:  AppTextTheme.bodyLarge.copyWith(color: cs.onSurface),
+    bodyLarge: AppTextTheme.bodyLarge.copyWith(color: cs.onSurface),
     bodyMedium: AppTextTheme.bodyMedium.copyWith(color: cs.onSurface),
-    bodySmall:  AppTextTheme.bodySmall.copyWith(
+    bodySmall: AppTextTheme.bodySmall.copyWith(
       color: cs.onSurface.withValues(alpha: 0.7),
     ),
 
-    labelLarge:  AppTextTheme.labelLarge.copyWith(color: cs.onSurface),
+    labelLarge: AppTextTheme.labelLarge.copyWith(color: cs.onSurface),
     labelMedium: AppTextTheme.labelMedium.copyWith(color: cs.onSurface),
-    labelSmall:  AppTextTheme.labelSmall.copyWith(
+    labelSmall: AppTextTheme.labelSmall.copyWith(
       color: cs.onSurface.withValues(alpha: 0.6),
     ),
   );

@@ -10,11 +10,12 @@ import 'package:receipt_helper/features/home/presentation/pages/home_feature_scr
 import 'package:receipt_helper/features/home/presentation/cubit/home_cubit.dart';
 import 'package:receipt_helper/features/loading/presentation/pages/loading_feature_screen.dart';
 import 'package:receipt_helper/features/loading/presentation/cubit/loading_cubit.dart';
-
+import 'package:receipt_helper/features/auth/presentation/pages/auth_feature_screen.dart';
+import 'package:receipt_helper/features/auth/presentation/cubit/auth_cubit.dart';
 
 class AppRouter {
   static final GoRouter router = GoRouter(
-    initialLocation: Routes.home,
+    initialLocation: Routes.loading,
     routes: [
       GoRoute(
         path: Routes.splash,
@@ -51,15 +52,23 @@ class AppRouter {
           ),
         ],
       ),
-    
-  GoRoute(
-    path: Routes.loading,
-    builder: (context, state) => BlocProvider(
+
+      GoRoute(
+        path: Routes.loading,
+        builder: (context, state) => BlocProvider(
           create: (context) => LoadingCubit(GetIt.I.get()),
           child: const LoadingFeatureScreen(),
         ),
-  ),
-],
+      ),
+
+      GoRoute(
+        path: Routes.auth,
+        builder: (context, state) => BlocProvider(
+          create: (context) => AuthCubit(GetIt.I.get()),
+          child: const AuthFeatureScreen(),
+        ),
+      ),
+    ],
 
     errorBuilder: (context, state) =>
         Scaffold(body: Center(child: Text('Page not found: ${state.uri}'))),

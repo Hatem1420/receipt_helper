@@ -12,46 +12,23 @@ class ReceiptService {
   final GetStorage _getStorage;
   final LocalKeysService _localKeysService;
   late final StreamController<List<ReceiptModel>?> _baseReceipts;
+  late final StreamSubscription _subscription;
 
   ReceiptService(this._getStorage, this._localKeysService) {
     initializeStream();
   }
 
   void initializeStream() {
-    _baseReceipts = StreamController.broadcast();
+    _baseReceipts = StreamController.broadcast(
+      onListen: () => _baseReceipts.add(
+        dataConverter(_getStorage.read(_localKeysService.receiptsData)),
+      ),
+      onCancel: () => _subscription.cancel(),
+    );
 
-    final storedData = _getStorage.read(_localKeysService.receiptsData);
-
-    if (storedData != null) {
-      print(storedData);
-      _receipts = (storedData as List)
-          .map((e) => ReceiptModel.fromJson(Map<String, dynamic>.from(e)))
-          .toList();
-
-      Future.delayed(
-        Duration(seconds: 3),
-        () => _baseReceipts.sink.add(_receipts),
-      );
-    } else {
-      //write();
-    }
-
-    try {
-      _getStorage.listenKey(_localKeysService.receiptsData, (value) {
-        if (value != null) {
-          log(value.toString());
-          _receipts = (storedData as List)
-              .map((e) => ReceiptModel.fromJson(Map<String, dynamic>.from(e)))
-              .toList();
-        }
-        Future.delayed(
-          Duration(seconds: 3),
-          () => _baseReceipts.sink.add(_receipts),
-        );
-      });
-    } catch (e) {
-      log(e.toString());
-    }
+    _getStorage.listenKey(_localKeysService.receiptsData, (value) {
+      _baseReceipts.add(dataConverter(value));
+    });
   }
 
   Future<void> write() async {
@@ -59,11 +36,25 @@ class ReceiptService {
     await _getStorage.write(_localKeysService.receiptsData, []);
   }
 
+  List<ReceiptModel>? dataConverter<T>(T? data) {
+    if (data != null) {
+      log(data.toString());
+      _receipts = (data as List)
+          .map((e) => ReceiptModel.fromJson(Map<String, dynamic>.from(e)))
+          .toList();
+      return _receipts;
+    } else {
+      _receipts = [];
+      return _receipts;
+    }
+  }
+
   List<ReceiptModel>? get localReceipts => _receipts;
 
   Stream<List<ReceiptModel>?> get receiptsListen => _baseReceipts.stream;
 
   void dispose() {
+    _subscription.cancel();
     _baseReceipts.close();
   }
 }

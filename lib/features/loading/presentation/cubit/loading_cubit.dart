@@ -5,16 +5,18 @@ import 'package:receipt_helper/features/loading/presentation/cubit/loading_state
 class LoadingCubit extends Cubit<LoadingState> {
   final LoadingUseCase _loadingUseCase;
 
-  LoadingCubit(this._loadingUseCase) : super(LoadingInitialState());
+  LoadingCubit(this._loadingUseCase) : super(LoadingInitialState()) {
+    getLoadingMethod();
+  }
 
   Future<void> getLoadingMethod() async {
     final result = await _loadingUseCase.getLoading();
     result.when(
       (success) {
-        //here is when success result
+        emit(LoadingSuccessState());
       },
       (whenError) {
-       //here is when error result
+        emit(LoadingErrorState(message: whenError.message));
       },
     );
   }

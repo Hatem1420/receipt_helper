@@ -15,6 +15,7 @@ import 'package:injectable/injectable.dart' as _i526;
 import 'package:receipt_helper/core/services/local_keys_service.dart' as _i540;
 import 'package:receipt_helper/core/services/open_ai_service.dart' as _i152;
 import 'package:receipt_helper/core/services/receipt_service.dart' as _i593;
+import 'package:receipt_helper/core/services/user_service.dart' as _i852;
 import 'package:receipt_helper/features/scan/data/datasources/scan_remote_data_source.dart'
     as _i628;
 import 'package:receipt_helper/features/scan/data/repositories/scan_repository_data.dart'
@@ -37,6 +38,7 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i152.OpenAiService>(),
         gh<_i792.GetStorage>(),
         gh<_i593.ReceiptService>(),
+        gh<_i852.UserService>(),
       ),
     );
     gh.lazySingleton<_i199.ScanRepositoryDomain>(

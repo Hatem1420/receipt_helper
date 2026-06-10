@@ -1,6 +1,5 @@
-import 'dart:developer';
-
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:receipt_helper/core/common/entities/receipt_entity.dart';
 import 'package:receipt_helper/features/home/domain/use_cases/home_use_case.dart';
 import 'package:receipt_helper/features/home/presentation/cubit/home_state.dart';
 
@@ -40,15 +39,11 @@ class HomeCubit extends Cubit<HomeState> {
     });
   }
 
+  void removeReceipt(List<ReceiptEntity> newList) {}
+
   @override
   Future<void> close() {
     //here is when close cubit
     return super.close();
-  }
-
-  @override
-  void onChange(Change<HomeState> change) {
-    super.onChange(change);
-    log(change.toString());
   }
 }

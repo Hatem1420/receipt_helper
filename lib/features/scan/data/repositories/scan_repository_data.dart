@@ -1,4 +1,3 @@
-import 'dart:developer';
 
 import 'package:injectable/injectable.dart';
 import 'package:multiple_result/multiple_result.dart';
@@ -20,7 +19,6 @@ class ScanRepositoryData implements ScanRepositoryDomain {
   Future<Result<ReceiptEntity, Failure>> getScan(String imagePath) async {
     try {
       final response = await remoteDataSource.getScan(imagePath);
-      log('--------------2');
       return Success(response.toEntity());
     } on Failure catch (error) {
       return Error(error);

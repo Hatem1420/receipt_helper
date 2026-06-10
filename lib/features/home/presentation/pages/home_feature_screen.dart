@@ -11,7 +11,7 @@ class HomeFeatureScreen extends StatelessWidget {
   const HomeFeatureScreen({super.key});
   @override
   Widget build(BuildContext context) {
-    final _ = context.read<HomeCubit>();
+    final cubit = context.read<HomeCubit>();
 
     return Scaffold(
       appBar: AppBar(title: const Text('Home Feature Screen')),
@@ -29,6 +29,10 @@ class HomeFeatureScreen extends StatelessWidget {
                   : ListView.separated(
                       itemBuilder: (context, index) => HomeWidget(
                         receipt: state.receipts[index],
+                        onDelete: (_) {
+                          state.receipts.removeAt(index);
+                          cubit.removeReceipt(state.receipts);
+                        },
                         onTap: () => context.showBottomSheet(
                           widget: ReceiptWidget(receipt: state.receipts[index]),
                         ),

@@ -10,8 +10,11 @@
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:get_it/get_it.dart' as _i174;
+import 'package:get_storage/get_storage.dart' as _i792;
+import 'package:google_sign_in/google_sign_in.dart' as _i116;
 import 'package:injectable/injectable.dart' as _i526;
 import 'package:receipt_helper/core/services/local_keys_service.dart' as _i540;
+import 'package:receipt_helper/core/services/user_service.dart' as _i852;
 import 'package:receipt_helper/features/loading/data/datasources/loading_remote_data_source.dart'
     as _i595;
 import 'package:receipt_helper/features/loading/data/repositories/loading_repository_data.dart'
@@ -20,7 +23,6 @@ import 'package:receipt_helper/features/loading/domain/repositories/loading_repo
     as _i140;
 import 'package:receipt_helper/features/loading/domain/use_cases/loading_use_case.dart'
     as _i30;
-import 'package:supabase_flutter/supabase_flutter.dart' as _i454;
 
 extension GetItInjectableX on _i174.GetIt {
   // initializes the registration of main-scope dependencies inside of GetIt
@@ -32,7 +34,9 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i595.BaseLoadingRemoteDataSource>(
       () => _i595.LoadingRemoteDataSource(
         gh<_i540.LocalKeysService>(),
-        gh<_i454.SupabaseClient>(),
+        gh<_i792.GetStorage>(),
+        gh<_i852.UserService>(),
+        gh<_i116.GoogleSignIn>(),
       ),
     );
     gh.lazySingleton<_i140.LoadingRepositoryDomain>(

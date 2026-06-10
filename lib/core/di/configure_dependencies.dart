@@ -4,18 +4,19 @@ import 'package:injectable/injectable.dart';
 import 'package:receipt_helper/features/scan/di/scan_di.dart';
 import 'package:receipt_helper/features/home/di/home_di.dart';
 import 'package:receipt_helper/features/loading/di/loading_di.dart';
+import 'package:receipt_helper/features/auth/di/auth_di.dart';
 
 @InjectableInit(
-  initializerName: 'init', 
+  initializerName: 'init',
   preferRelativeImports: true,
-  asExtension: true, 
+  asExtension: true,
   generateForDir: ['lib/core'],
 )
-
 Future<void> configureDependencies() async {
   final getIt = GetIt.instance;
   getIt.init();
-    configureScan(getIt);
-    configureHome(getIt);
-    configureLoading(getIt);
+  configureScan(getIt);
+  configureHome(getIt);
+  configureLoading(getIt);
+  configureAuth(getIt);
 }

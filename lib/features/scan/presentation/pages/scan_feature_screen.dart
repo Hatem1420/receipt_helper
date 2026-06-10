@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:receipt_helper/core/common/entities/receipt_entity.dart';
-import 'package:receipt_helper/core/common/entities/receipt_item_entity.dart';
 import 'package:receipt_helper/core/extensions/context_extensions.dart';
 import 'package:receipt_helper/core/navigation/routers.dart';
 import 'package:receipt_helper/features/scan/presentation/cubit/scan_cubit.dart';
@@ -15,16 +13,6 @@ class ScanFeatureScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final cubit = context.read<ScanCubit>();
-    final receipt = ReceiptEntity(
-      items: [
-        ReceiptItemEntity(
-          name: 'some',
-          quantity: 5,
-          totalPrice: 56,
-          unitPrice: 5,
-        ),
-      ],
-    );
 
     return Scaffold(
       appBar: AppBar(title: const Text('Scan Feature Screen')),
@@ -38,6 +26,7 @@ class ScanFeatureScreen extends StatelessWidget {
             context.showSnackBar(state.message, isError: true);
           }
           if (state is ScanSaveSuccessState) {
+            context.pop();
             context.go(Routes.home);
           }
           if (state is ScanSuccessState) {
@@ -45,7 +34,6 @@ class ScanFeatureScreen extends StatelessWidget {
               widget: ReceiptWidget(
                 receipt: state.receipt,
                 onSave: () {
-                  context.pop();
                   cubit.saveReceipt(state.receipt);
                 },
               ),
@@ -55,20 +43,9 @@ class ScanFeatureScreen extends StatelessWidget {
         },
         builder: (context, state) {
           return Center(
-            child: Column(
-              children: [
-                FilledButton(
-                  onPressed: () => cubit.capture(),
-                  child: Text('Scan a Receipt'),
-                ),
-                ElevatedButton(
-                  onPressed: () => context.showBottomSheet(
-                    widget: ReceiptWidget(receipt: receipt),
-                    height: 100.sh,
-                  ),
-                  child: Text('data'),
-                ),
-              ],
+            child: FilledButton(
+              onPressed: () => cubit.capture(),
+              child: Text('Scan a Receipt'),
             ),
           );
         },

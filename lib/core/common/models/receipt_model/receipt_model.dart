@@ -37,4 +37,15 @@ extension ReceiptModelMapper on ReceiptModel {
     totals: totals?.toEntity(),
     items: items.map((e) => e.toEntity()).toList(),
   );
+
+  List<Object?> toSheetRow() => [
+    receiptInfo?.date ?? '',
+    merchant?.name ?? '',
+    items.length,
+    totals?.subTotalModel ?? '',
+    totals?.tax ?? '',
+    totals?.total ?? '',
+    receiptInfo?.currency ?? '',
+    DateTime.now().toIso8601String(),
+  ];
 }
