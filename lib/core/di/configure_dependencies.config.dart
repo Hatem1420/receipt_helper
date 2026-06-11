@@ -17,6 +17,7 @@ import 'package:injectable/injectable.dart' as _i526;
 import 'package:supabase_flutter/supabase_flutter.dart' as _i454;
 
 import '../network/dio_client.dart' as _i667;
+import '../services/google_api_service.dart' as _i176;
 import '../services/local_keys_service.dart' as _i945;
 import '../services/open_ai_service.dart' as _i567;
 import '../services/receipt_service.dart' as _i317;
@@ -31,6 +32,7 @@ extension GetItInjectableX on _i174.GetIt {
   }) {
     final gh = _i526.GetItHelper(this, environment, environmentFilter);
     final thirdPartyConfig = _$ThirdPartyConfig();
+    gh.singleton<_i176.GoogleApiService>(() => _i176.GoogleApiService());
     gh.singleton<_i567.OpenAiService>(() => _i567.OpenAiService());
     gh.singleton<_i381.UserService>(() => _i381.UserService());
     gh.lazySingleton<_i792.GetStorage>(() => thirdPartyConfig.storage);

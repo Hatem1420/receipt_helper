@@ -37,11 +37,13 @@ class AuthRemoteDataSource implements BaseAuthRemoteDataSource {
           'email',
           'profile',
           SheetsApi.spreadsheetsScope,
+          SheetsApi.driveReadonlyScope
         ]) ??
         await account.authorizationClient.authorizeScopes([
           'email',
           'profile',
           SheetsApi.spreadsheetsScope,
+          SheetsApi.driveReadonlyScope
         ]);
     final client = authorization.authClient(scopes: []);
 

@@ -1,4 +1,3 @@
-
 import 'package:injectable/injectable.dart';
 import 'package:multiple_result/multiple_result.dart';
 import 'package:receipt_helper/core/common/entities/receipt_entity.dart';
@@ -28,9 +27,17 @@ class ScanRepositoryData implements ScanRepositoryDomain {
   }
 
   @override
-  Future<Result<void, Failure>> saveReceipt(ReceiptEntity receipt) async {
+  Future<Result<void, Failure>> saveReceipt(
+    ReceiptEntity receipt, {
+    String? sheetId,
+    String? sheetName,
+  }) async {
     try {
-      await remoteDataSource.saveReceipt(ReceiptModel.fromEntity(receipt));
+      await remoteDataSource.saveReceipt(
+        ReceiptModel.fromEntity(receipt),
+        sheetId: sheetId,
+        sheetName: sheetName
+      );
       return Success(null);
     } on Failure catch (error) {
       return Error(error);

@@ -12,6 +12,7 @@
 import 'package:get_it/get_it.dart' as _i174;
 import 'package:get_storage/get_storage.dart' as _i792;
 import 'package:injectable/injectable.dart' as _i526;
+import 'package:receipt_helper/core/services/google_api_service.dart' as _i835;
 import 'package:receipt_helper/core/services/local_keys_service.dart' as _i540;
 import 'package:receipt_helper/core/services/open_ai_service.dart' as _i152;
 import 'package:receipt_helper/core/services/receipt_service.dart' as _i593;
@@ -39,6 +40,7 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i792.GetStorage>(),
         gh<_i593.ReceiptService>(),
         gh<_i852.UserService>(),
+        gh<_i835.GoogleApiService>(),
       ),
     );
     gh.lazySingleton<_i199.ScanRepositoryDomain>(

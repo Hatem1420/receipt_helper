@@ -14,7 +14,15 @@ class ScanUseCase {
     return _repositoryData.getScan(imagePath);
   }
 
-  Future<Result<void, Failure>> saveReceipt(ReceiptEntity receipt) {
-    return _repositoryData.saveReceipt(receipt);
+  Future<Result<void, Failure>> saveReceipt(
+    ReceiptEntity receipt, {
+    String? sheetId,
+    String? sheetName,
+  }) {
+    return _repositoryData.saveReceipt(
+      receipt,
+      sheetId: sheetId,
+      sheetName: sheetName,
+    );
   }
 }

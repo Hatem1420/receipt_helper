@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:receipt_helper/core/common/entities/receipt_entity.dart';
 import 'package:receipt_helper/core/common/entities/receipt_item_entity.dart';
+import 'package:receipt_helper/features/sub/user_sheets/presentation/pages/user_sheets_feature_widget.dart';
 
 class ReceiptWidget extends StatelessWidget {
   final ReceiptEntity receipt;
-  final Function()? onSave;
+  final Function(String? sheetId, String? sheetName)? onSave;
   const ReceiptWidget({super.key, required this.receipt, this.onSave});
 
   @override
@@ -12,6 +13,8 @@ class ReceiptWidget extends StatelessWidget {
     final merchant = receipt.merchant;
     final info = receipt.receiptInfo;
     final totals = receipt.totals;
+    String? sheetId;
+    String? sheetName;
 
     return SafeArea(
       child: Padding(
@@ -74,13 +77,22 @@ class ReceiptWidget extends StatelessWidget {
 
               const SizedBox(height: 24),
 
+              UserSheetsFeatureWidget(
+                onSelect: (selectedSpreadId, selectedSheetName) {
+                  sheetId = selectedSpreadId;
+                  sheetName = selectedSheetName;
+                },
+              ),
+
+              const SizedBox(height: 24),
+
               if (onSave != null)
                 SizedBox(
                   width: double.infinity,
                   child: FilledButton(
                     onPressed: () {
                       if (onSave != null) {
-                        onSave!();
+                        onSave!(sheetId, sheetName);
                       }
                     },
                     child: const Text('Save Receipt'),
@@ -135,7 +147,7 @@ class _ItemTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      contentPadding: EdgeInsets.zero,
+      contentPadding: EdgeInsets.all(8),
       title: Text(item.name ?? ''),
       subtitle: item.quantity != null ? Text('Qty: ${item.quantity}') : null,
       trailing: item.totalPrice != null

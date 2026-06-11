@@ -33,8 +33,42 @@ class ScanFeatureScreen extends StatelessWidget {
             context.showBottomSheet(
               widget: ReceiptWidget(
                 receipt: state.receipt,
-                onSave: () {
-                  cubit.saveReceipt(state.receipt);
+                onSave: (sheetId, sheetName) {
+                  if (sheetId == null || sheetName == null) {
+                    showDialog(
+                      context: context,
+                      builder: (context) => AlertDialog(
+                        title: Text('Spreadsheet info not enough'),
+                        content: Text(
+                          'Either spreadsheet name or sheet name is not provided,\n Do you want to create a new spreadsheet?',
+                        ),
+                        actions: [
+                          TextButton(
+                            onPressed: () => context.pop(),
+                            child: Text('Cancel'),
+                          ),
+                          FilledButton(
+                            onPressed: () => context.pop(true),
+                            child: Text('Create'),
+                          ),
+                        ],
+                      ),
+                    ).then((value) {
+                      if (value == true) {
+                        cubit.saveReceipt(
+                          state.receipt,
+                          sheetId: sheetId,
+                          sheetName: sheetName,
+                        );
+                      }
+                    });
+                  } else {
+                    cubit.saveReceipt(
+                      state.receipt,
+                      sheetId: sheetId,
+                      sheetName: sheetName,
+                    );
+                  }
                 },
               ),
               height: 100.sh,

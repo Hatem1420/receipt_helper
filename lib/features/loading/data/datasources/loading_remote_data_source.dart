@@ -40,6 +40,7 @@ class LoadingRemoteDataSource implements BaseLoadingRemoteDataSource {
           'email',
           'profile',
           SheetsApi.spreadsheetsScope,
+          SheetsApi.driveReadonlyScope
         ]);
     final client = authorization?.authClient(
       scopes: [SheetsApi.spreadsheetsScope],
