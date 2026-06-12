@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
+import 'package:receipt_helper/core/extensions/context_extensions.dart';
 import 'package:receipt_helper/features/sub/user_sheets/presentation/cubit/user_sheets_cubit.dart';
 import 'package:receipt_helper/features/sub/user_sheets/presentation/cubit/user_sheets_state.dart';
 import 'package:sizer/sizer.dart';
@@ -18,7 +19,12 @@ class UserSheetsFeatureWidget extends StatelessWidget {
           String? selectedSpread;
           String? spreadId;
           String? sheetName;
-          return BlocBuilder<UserSheetsCubit, UserSheetsState>(
+          return BlocConsumer<UserSheetsCubit, UserSheetsState>(
+            listener: (context, state) {
+              if (state is UserSheetsErrorState) {
+                context.showSnackBar(state.message, isError: true);
+              }
+            },
             builder: (context, state) {
               return Column(
                 crossAxisAlignment: .stretch,
@@ -30,12 +36,14 @@ class UserSheetsFeatureWidget extends StatelessWidget {
                       enableSearch: true,
                       enableFilter: true,
                       initialSelection: selectedSpread,
-                      filterCallback: (entries, filter) => entries
-                          .where((element) => element.label.contains(filter))
-                          .toList(),
                       label: Text('Spreadsheet Name'),
                       requestFocusOnTap: true,
                       width: .infinity,
+                      menuHeight: 40.sh,
+                      alignmentOffset: Offset(0, 0),
+                      filterCallback: (entries, filter) => entries
+                          .where((element) => element.label.contains(filter))
+                          .toList(),
                       onSelected: (value) {
                         selectedSpread = value;
                         spreadId = state.spreadSheets
@@ -46,8 +54,6 @@ class UserSheetsFeatureWidget extends StatelessWidget {
                         cubit.fetchTabs(spreadId ?? '');
                         sheetName = null;
                       },
-                      menuHeight: 50.sh,
-                      alignmentOffset: Offset(0, 0),
                       dropdownMenuEntries: state.spreadSheets
                           .map(
                             (e) => DropdownMenuEntry<String>(
@@ -57,15 +63,16 @@ class UserSheetsFeatureWidget extends StatelessWidget {
                           )
                           .toList(),
                     ),
-                  if (state is UserSheetsSuccessState && state.sheets != null)
+                  if (state is UserSheetsSuccessState)
                     DropdownMenu<String>(
                       hintText: 'Choose a sheet',
                       enableSearch: true,
                       enableFilter: true,
+                      enabled: state.sheets != null,
                       initialSelection: sheetName,
                       width: .infinity,
                       label: Text('Sheet Name'),
-                      menuHeight: 50.sh,
+                      menuHeight: 40.sh,
                       alignmentOffset: Offset(0, 0),
                       requestFocusOnTap: true,
                       filterCallback: (entries, filter) => entries
@@ -75,26 +82,21 @@ class UserSheetsFeatureWidget extends StatelessWidget {
                         sheetName = value;
                         if (onSelect != null) onSelect!(spreadId, sheetName);
                       },
-                      dropdownMenuEntries: state.sheets!
-                          .map(
-                            (e) => DropdownMenuEntry<String>(
-                              value: e.properties?.title ?? '',
-                              label: e.properties?.title ?? '',
-                            ),
-                          )
-                          .toList(),
+                      dropdownMenuEntries: state.sheets == null
+                          ? []
+                          : state.sheets!
+                                .map(
+                                  (e) => DropdownMenuEntry<String>(
+                                    value: e.properties?.title ?? '',
+                                    label: e.properties?.title ?? '',
+                                  ),
+                                )
+                                .toList(),
                     ),
                   if (state is UserSheetsSuccessState &&
                       state.sheetError != null)
                     Text(
                       state.sheetError!,
-                      style: TextStyle(
-                        color: Theme.of(context).colorScheme.error,
-                      ),
-                    ),
-                  if (state is UserSheetsErrorState)
-                    Text(
-                      state.message,
                       style: TextStyle(
                         color: Theme.of(context).colorScheme.error,
                       ),

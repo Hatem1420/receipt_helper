@@ -13,16 +13,4 @@ class ScanUseCase {
   Future<Result<ReceiptEntity, Failure>> getScan(String imagePath) async {
     return _repositoryData.getScan(imagePath);
   }
-
-  Future<Result<void, Failure>> saveReceipt(
-    ReceiptEntity receipt, {
-    String? sheetId,
-    String? sheetName,
-  }) {
-    return _repositoryData.saveReceipt(
-      receipt,
-      sheetId: sheetId,
-      sheetName: sheetName,
-    );
-  }
 }

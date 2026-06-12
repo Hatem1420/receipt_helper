@@ -6,6 +6,7 @@ import 'package:receipt_helper/features/home/di/home_di.dart';
 import 'package:receipt_helper/features/loading/di/loading_di.dart';
 import 'package:receipt_helper/features/auth/di/auth_di.dart';
 import 'package:receipt_helper/features/sub/user_sheets/di/user_sheets_di.dart';
+import 'package:receipt_helper/features/sub/receipt_review/di/receipt_review_di.dart';
 
 @InjectableInit(
   initializerName: 'init',
@@ -21,4 +22,5 @@ Future<void> configureDependencies() async {
   configureLoading(getIt);
   configureAuth(getIt);
     configureUserSheetsSub(getIt);
+    configureReceiptReview(getIt);
 }

@@ -5,7 +5,8 @@ import 'package:receipt_helper/core/widgets/loading_widget.dart';
 import 'package:receipt_helper/features/home/presentation/cubit/home_cubit.dart';
 import 'package:receipt_helper/features/home/presentation/cubit/home_state.dart';
 import 'package:receipt_helper/features/home/presentation/widgets/home_widget.dart';
-import 'package:receipt_helper/features/scan/presentation/widgets/receipt_widget.dart';
+import 'package:receipt_helper/features/sub/receipt_review/presentation/pages/receipt_review_feature_screen.dart';
+import 'package:sizer/sizer.dart';
 
 class HomeFeatureScreen extends StatelessWidget {
   const HomeFeatureScreen({super.key});
@@ -14,7 +15,10 @@ class HomeFeatureScreen extends StatelessWidget {
     final cubit = context.read<HomeCubit>();
 
     return Scaffold(
-      appBar: AppBar(title: const Text('Home Feature Screen')),
+      appBar: AppBar(
+        title: const Text('Home Feature Screen'),
+        centerTitle: true,
+      ),
       body: BlocConsumer<HomeCubit, HomeState>(
         listener: (context, state) {
           if (state is HomeErrorState) {
@@ -34,7 +38,10 @@ class HomeFeatureScreen extends StatelessWidget {
                           cubit.removeReceipt(state.receipts);
                         },
                         onTap: () => context.showBottomSheet(
-                          widget: ReceiptWidget(receipt: state.receipts[index]),
+                          widget: ReceiptReviewFeatureScreen(
+                            receipt: state.receipts[index],
+                          ),
+                          height: 100.sh,
                         ),
                       ),
                       separatorBuilder: (context, index) => Divider(),

@@ -10,8 +10,6 @@ abstract class ScanState extends Equatable {
 
 class ScanInitialState extends ScanState {}
 
-class ScanSaveSuccessState extends ScanState {}
-
 class ScanSuccessState extends ScanState {
   final ReceiptEntity receipt;
 

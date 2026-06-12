@@ -3,9 +3,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:receipt_helper/core/extensions/context_extensions.dart';
 import 'package:receipt_helper/core/navigation/routers.dart';
+import 'package:receipt_helper/features/sub/receipt_review/presentation/pages/receipt_review_feature_screen.dart';
 import 'package:receipt_helper/features/scan/presentation/cubit/scan_cubit.dart';
 import 'package:receipt_helper/features/scan/presentation/cubit/scan_state.dart';
-import 'package:receipt_helper/features/scan/presentation/widgets/receipt_widget.dart';
 import 'package:sizer/sizer.dart';
 
 class ScanFeatureScreen extends StatelessWidget {
@@ -25,61 +25,25 @@ class ScanFeatureScreen extends StatelessWidget {
           if (state is ScanErrorState) {
             context.showSnackBar(state.message, isError: true);
           }
-          if (state is ScanSaveSuccessState) {
-            context.pop();
-            context.go(Routes.home);
-          }
           if (state is ScanSuccessState) {
-            context.showBottomSheet(
-              widget: ReceiptWidget(
-                receipt: state.receipt,
-                onSave: (sheetId, sheetName) {
-                  if (sheetId == null || sheetName == null) {
-                    showDialog(
-                      context: context,
-                      builder: (context) => AlertDialog(
-                        title: Text('Spreadsheet info not enough'),
-                        content: Text(
-                          'Either spreadsheet name or sheet name is not provided,\n Do you want to create a new spreadsheet?',
-                        ),
-                        actions: [
-                          TextButton(
-                            onPressed: () => context.pop(),
-                            child: Text('Cancel'),
-                          ),
-                          FilledButton(
-                            onPressed: () => context.pop(true),
-                            child: Text('Create'),
-                          ),
-                        ],
-                      ),
-                    ).then((value) {
-                      if (value == true) {
-                        cubit.saveReceipt(
-                          state.receipt,
-                          sheetId: sheetId,
-                          sheetName: sheetName,
-                        );
-                      }
-                    });
-                  } else {
-                    cubit.saveReceipt(
-                      state.receipt,
-                      sheetId: sheetId,
-                      sheetName: sheetName,
-                    );
+            context
+                .showBottomSheet(
+                  widget: ReceiptReviewFeatureScreen(receipt: state.receipt),
+                  height: 100.sh,
+                )
+                .then((value) {
+                  if (value == true && context.mounted) {
+                    context.go(Routes.home);
                   }
-                },
-              ),
-              height: 100.sh,
-            );
+                });
           }
         },
         builder: (context, state) {
           return Center(
-            child: FilledButton(
+            child: FilledButton.icon(
+              icon: Icon(Icons.camera_alt_outlined),
               onPressed: () => cubit.capture(),
-              child: Text('Scan a Receipt'),
+              label: Text('Scan a Receipt'),
             ),
           );
         },

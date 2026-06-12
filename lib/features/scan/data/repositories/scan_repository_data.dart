@@ -25,24 +25,4 @@ class ScanRepositoryData implements ScanRepositoryDomain {
       return Error(FailureExceptions.getException(error));
     }
   }
-
-  @override
-  Future<Result<void, Failure>> saveReceipt(
-    ReceiptEntity receipt, {
-    String? sheetId,
-    String? sheetName,
-  }) async {
-    try {
-      await remoteDataSource.saveReceipt(
-        ReceiptModel.fromEntity(receipt),
-        sheetId: sheetId,
-        sheetName: sheetName
-      );
-      return Success(null);
-    } on Failure catch (error) {
-      return Error(error);
-    } catch (error) {
-      return Error(FailureExceptions.getException(error));
-    }
-  }
 }
